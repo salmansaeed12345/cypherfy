@@ -96,14 +96,26 @@ string decrypt_diff (string s){
 
 
 string encrypt_diff (string s){
-      int k=5;
+      int k=2;
     for (int i=0 ; i < s.length();i++){
 
         char c=toupper (s[i]);
 
-        if (c>='A' && c<='Z' && c==65,69,73,79,85){
-             c=32;}
-        else{c=c}     
+        if (c>='A' && c<='Z' && c==65){
+             c=0;}                                    //null in place of A
+        
+        if (c>='A' && c<='Z' && c==69){
+             c=32;}                                   //space in place of E
+        
+        if (c>='A' && c<='Z' && c==73){
+             c=46;}                                    // full stop for I
+          
+        if (c>='A' && c<='Z' && c==79){
+             c=61;}                                         // = for O
+        
+        if (c>='A' && c<='Z' && c==85){
+             c=86;}                                         // v for U   
+        else{c=c+k}                                        //rest of the letters are moved two places ahead  
                
     }
 

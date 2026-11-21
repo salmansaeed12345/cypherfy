@@ -77,22 +77,6 @@ string encrypt_medium (string s){
     return s;
 }
 
-string decrypt_diff (string s){
-      int k=5;
-    for (int i=0 ; i < s.length();i++){
-
-        char c=toupper (s[i]);
-
-        if (c>='A' && c<='Z'){
-             c=c+k;
-             if(c>'Z')
-               c+=26;
-    }
-
-        s[i]=c;         
-    }
-    return s;
-}
 
 
 string encrypt_diff (string s){
@@ -102,7 +86,7 @@ string encrypt_diff (string s){
         char c=toupper (s[i]);
 
         if (c>='A' && c<='Z' && c==65){
-             c=0;}                                    //null in place of A
+             c=64;}                                    //null in place of A
         
         if (c>='A' && c<='Z' && c==69){
              c=32;}                                   //space in place of E
@@ -116,6 +100,35 @@ string encrypt_diff (string s){
         if (c>='A' && c<='Z' && c==85){
              c=86;}                                         // v for U   
         else{c=c+k}                                        //rest of the letters are moved two places ahead  
+               
+    }
+
+        s[i]=c;         
+    }
+    return s;
+}
+
+string decrypt_diff (string s){
+      int k=2;
+    for (int i=0 ; i < s.length();i++){
+
+        char c=toupper (s[i]);
+
+        if (c==64){
+             c=65;}                                    //null in place of A
+        
+        if (c==32){
+             c=69;}                                   //space in place of E
+        
+        if (c==46){
+             c=73;}                                    // full stop for I
+          
+        if (c==61){
+             c=79;}                                         // = for O
+        
+        if (c==86){
+             c=85;}                                         // v for U   
+        else{c=c-k}                                        //rest of the letters are moved two places ahead  
                
     }
 

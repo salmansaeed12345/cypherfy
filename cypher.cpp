@@ -18,7 +18,6 @@ string encrypt_medium(string s);
 string encrypt_diff(string s);
 string decrypt_diff(string s);
 
-string encrypt_level(string s, int k);
 string check_answer(string s);
 
 void play_game();
@@ -182,28 +181,6 @@ string decrypt_diff(string s) {
     return s;
 }
 
-// GAME ENCRYPTION FUNCTION
-
-string encrypt_level(string s, int k) {
-
-    for (int i = 0; i < s.length(); i++) {
-
-        char c = toupper(s[i]);
-
-        if (c >= 'A' && c <= 'Z') {
-
-            c = c + k; // Uses the current level number as the encryption key
-
-            if (c > 'Z')
-                c -= 26;
-        }
-
-        s[i] = c; // Stores the encrypted character back in the string
-    }
-
-    return s;
-}
-
 // ANSWER CHECKING FUNCTION
 
 string check_answer(string s) {
@@ -242,7 +219,19 @@ void play_game()
     {
         attempts = 5;
 
-        encrypted = encrypt_level(messages[level], level + 1);
+        // Selects the encryption function according to the level
+        if (level < 3)
+        {
+            encrypted = encrypt_easy(messages[level]);
+        }
+        else if (level < 6)
+        {
+            encrypted = encrypt_medium(messages[level]);
+        }
+        else
+        {
+            encrypted = encrypt_diff(messages[level]);
+        }
 
         cout << "\n--------------------------";
         cout << "\nLEVEL " << level + 1;
@@ -276,7 +265,7 @@ void play_game()
             else
             {
                 attempts--;
-                cout << "Incorrect answer!";
+                cout << "Incorrect answer !";
                 cout << "\nAttempts remaining: " << attempts << endl;
             }
         }
@@ -292,3 +281,4 @@ void play_game()
     cout << "\n===== GAME COMPLETED =====\n";
     cout << "You have finished all 10 levels!\n";
 }
+

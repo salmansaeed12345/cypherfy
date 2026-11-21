@@ -1,4 +1,3 @@
-
 #include <iostream>
 #include <string>
 #include <cstdlib>
@@ -21,6 +20,8 @@ string decrypt_diff(string s);
 
 string encrypt_level(string s, int k);
 string check_answer(string s);
+
+void play_game();
 
 // MAIN FUNCTION
 
@@ -213,4 +214,81 @@ string check_answer(string s) {
     }
 
     return s;
+}
+
+// GAME FUNCTION
+
+void play_game()
+{
+    string messages[10] = {
+        "HELLO", "WORLD", "COMPUTER", "PROGRAMMING", "SECURITY",
+        "ENCRYPTION", "KEYBOARD", "INFORMATION", "CHALLENGE", "VICTORY"
+    };
+
+    string hints[10] = {
+        "A greeting", "The planet we live on", "An electronic device",
+        "Writing instructions for a computer", "Protection from danger",
+        "Converting information into secret code", "An input device",
+        "Facts or knowledge", "A difficult task", "Winning"
+    };
+
+    int attempts;
+    string encrypted, answer, guess;
+    char choice;
+
+    cout << "\n===== ENCRYPTION GAME =====\n";
+
+    for (int level = 0; level < 10; level++)
+    {
+        attempts = 5;
+
+        encrypted = encrypt_level(messages[level], level + 1);
+
+        cout << "\n--------------------------";
+        cout << "\nLEVEL " << level + 1;
+        cout << "\nEncrypted message: " << encrypted;
+        cout << "\nYou have " << attempts << " attempts.";
+        cout << "\n--------------------------";
+
+        while (attempts > 0)
+        {
+            cout << "\nEnter your guess (or H for hint): ";
+            cin >> guess;
+
+            // Convert the guess to uppercase
+            for (int i = 0; i < guess.length(); i++)
+            {
+                guess[i] = toupper(guess[i]);
+            }
+
+            // Check if the player wants a hint
+            if (guess == "H")
+            {
+                cout << "Hint: " << hints[level] << endl;
+                attempts--;
+                cout << "Attempts remaining: " << attempts << endl;
+            }
+            else if (check_answer(guess) == check_answer(messages[level]))
+            {
+                cout << "\nCorrect! You completed Level " << level + 1 << "!\n";
+                break;
+            }
+            else
+            {
+                attempts--;
+                cout << "Incorrect answer!";
+                cout << "\nAttempts remaining: " << attempts << endl;
+            }
+        }
+
+        // If the player runs out of attempts
+        if (attempts == 0)
+        {
+            cout << "\nYou have run out of attempts!";
+            cout << "\nThe correct answer was: " << messages[level] << endl;
+        }
+    }
+
+    cout << "\n===== GAME COMPLETED =====\n";
+    cout << "You have finished all 10 levels!\n";
 }

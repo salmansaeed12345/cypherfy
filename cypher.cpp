@@ -7,6 +7,30 @@
 
 using namespace std;
 
+
+// FUNCTION PROTOTYPES
+
+string encrypt_easy(string s);
+string decrypt_easy(string s);
+
+string decrypt_medium(string s);
+string encrypt_medium(string s);
+
+string encrypt_diff(string s);
+string decrypt_diff(string s);
+
+
+// MAIN FUNCTION
+
+int main() {
+
+
+}
+
+
+// FUNCTION DEFINITIONS
+
+
 string encrypt_easy(string s) {
     int k = 3;
     for (int i = 0; i < s.length();i++) {
@@ -153,10 +177,4 @@ string decrypt_diff(string s) {
         s[i] = c;
     }
     return s;
-}
-
-
-int main() {
-
-
 }

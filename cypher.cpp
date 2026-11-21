@@ -20,7 +20,7 @@ string encrypt_diff(string s);
 string decrypt_diff(string s);
 
 string encrypt_level(string s, int k);
-
+string check_answer(string s);
 
 // MAIN FUNCTION
 
@@ -198,6 +198,18 @@ string encrypt_level(string s, int k) {
         }
 
         s[i] = c; // Stores the encrypted character back in the string
+    }
+
+    return s;
+}
+
+// ANSWER CHECKING FUNCTION
+
+string check_answer(string s) {
+
+    for (int i = 0; i < s.length(); i++) {
+
+        s[i] = toupper(s[i]); // Makes answer comparison case-insensitive
     }
 
     return s;

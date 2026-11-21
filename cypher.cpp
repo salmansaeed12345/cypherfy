@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 // FUNCTION PROTOTYPES
 
 string encrypt_easy(string s);
@@ -26,12 +25,44 @@ void play_game();
 
 int main() {
 
+    int choice;
 
+    do {
+
+        cout << "\n====================================";
+        cout << "\n             CYPHERFY";
+        cout << "\n====================================";
+
+        cout << "\n1. Start Game";
+        cout << "\n2. Exit";
+
+        cout << "\n\nEnter your choice: ";
+        cin >> choice;
+
+        if (choice == 1) {
+
+            play_game(); // Starts the 10-level game
+
+        }
+
+        else if (choice == 2) {
+
+            cout << "\nThank you for playing CYPHERFY!";
+
+        }
+
+        else {
+
+            cout << "\nInvalid choice! Try again.";
+
+        }
+
+    } while (choice != 2); // Repeats menu until player chooses Exit
+
+    return 0;
 }
 
-
 // FUNCTION DEFINITIONS
-
 
 string encrypt_easy(string s) {
     int k = 3;
@@ -50,7 +81,6 @@ string encrypt_easy(string s) {
     return s;
 }
 
-
 string decrypt_easy(string s) {
     int k = 3;
     for (int i = 0; i < s.length();i++) {
@@ -67,7 +97,6 @@ string decrypt_easy(string s) {
     }
     return s;
 }
-
 
 string decrypt_medium(string s) {
     int k = 5;
@@ -86,7 +115,6 @@ string decrypt_medium(string s) {
     return s;
 }
 
-
 string encrypt_medium(string s) {
     int k = 5;
     for (int i = 0; i < s.length();i++) {
@@ -102,7 +130,6 @@ string encrypt_medium(string s) {
     }
     return s;
 }
-
 
 string encrypt_diff(string s) {
     int k = 2;
@@ -141,7 +168,6 @@ string encrypt_diff(string s) {
     }
     return s;
 }
-
 
 string decrypt_diff(string s) {
     int k = 2;
@@ -281,4 +307,3 @@ void play_game()
     cout << "\n===== GAME COMPLETED =====\n";
     cout << "You have finished all 10 levels!\n";
 }
-

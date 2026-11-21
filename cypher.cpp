@@ -19,6 +19,8 @@ string encrypt_medium(string s);
 string encrypt_diff(string s);
 string decrypt_diff(string s);
 
+string encrypt_level(string s, int k);
+
 
 // MAIN FUNCTION
 
@@ -176,5 +178,27 @@ string decrypt_diff(string s) {
 
         s[i] = c;
     }
+    return s;
+}
+
+// GAME ENCRYPTION FUNCTION
+
+string encrypt_level(string s, int k) {
+
+    for (int i = 0; i < s.length(); i++) {
+
+        char c = toupper(s[i]);
+
+        if (c >= 'A' && c <= 'Z') {
+
+            c = c + k; // Uses the current level number as the encryption key
+
+            if (c > 'Z')
+                c -= 26;
+        }
+
+        s[i] = c; // Stores the encrypted character back in the string
+    }
+
     return s;
 }

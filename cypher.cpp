@@ -139,7 +139,7 @@ string encrypt_diff(string s) {
 
         if (c == 'A') {
             c = 64;
-        }                                    // null in place of A
+        }                                    // @ in place of A
 
         else if (c == 'E') {
             c = 32;

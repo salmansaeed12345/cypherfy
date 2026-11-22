@@ -221,6 +221,7 @@ string check_answer(string s) {
 
 // GAME FUNCTION
 
+
 void play_game()
 {
     string messages[10] = {
@@ -236,16 +237,21 @@ void play_game()
     };
 
     int attempts;
-    string encrypted, answer, guess;
-    char choice;
+    int points = 0;
+    int level_points;
+    int total_attempts;
+    
+    string encrypted, guess;
 
     cout << "\n===== ENCRYPTION GAME =====\n";
 
     for (int level = 0; level < 10; level++)
     {
         attempts = 5;
+        level_points = 100;
+        total_attempts = 0;
 
-        // Selects the encryption function according to the level
+        // Select encryption function according to level
         if (level < 3)
         {
             encrypted = encrypt_easy(messages[level]);
@@ -263,6 +269,7 @@ void play_game()
         cout << "\nLEVEL " << level + 1;
         cout << "\nEncrypted message: " << encrypted;
         cout << "\nYou have " << attempts << " attempts.";
+        cout << "\nCurrent score: " << points;
         cout << "\n--------------------------";
 
         while (attempts > 0)
@@ -270,40 +277,71 @@ void play_game()
             cout << "\nEnter your guess (or H for hint): ";
             cin >> guess;
 
-            // Convert the guess to uppercase
+            // Convert guess to uppercase
             for (int i = 0; i < guess.length(); i++)
             {
                 guess[i] = toupper(guess[i]);
             }
 
-            // Check if the player wants a hint
+            // Hint system
             if (guess == "H")
             {
-                cout << "Hint: " << hints[level] << endl;
+                cout << "\nHint: " << hints[level] << endl;
+
                 attempts--;
-                cout << "Attempts remaining: " << attempts << endl;
+                level_points -= 10;
+
+                cout << "10 points deducted for using a hint.";
+                cout << "\nAttempts remaining: " << attempts;
+                cout << "\nPotential level points: " << level_points << endl;
             }
+
+            // Correct answer
             else if (check_answer(guess) == check_answer(messages[level]))
             {
-                cout << "\nCorrect! You completed Level " << level + 1 << "!\n";
+                total_attempts = 5 - attempts;
+
+                // Calculate points based on attempts
+                level_points = 100 - (total_attempts * 20);
+
+                // Deduct points for hints used
+                if (level_points < 0)
+                {
+                    level_points = 0;
+                }
+
+                points += level_points;
+
+                cout << "\nCorrect! You completed Level " << level + 1 << "!";
+                cout << "\nPoints earned: " << level_points;
+                cout << "\nTotal score: " << points << endl;
+
                 break;
             }
+
+            // Incorrect answer
             else
             {
                 attempts--;
-                cout << "Incorrect answer !";
+
+                cout << "\nIncorrect answer!";
                 cout << "\nAttempts remaining: " << attempts << endl;
             }
         }
 
-        // If the player runs out of attempts
+        // If player runs out of attempts
         if (attempts == 0)
         {
             cout << "\nYou have run out of attempts!";
-            cout << "\nThe correct answer was: " << messages[level] << endl;
+            cout << "\nThe correct answer was: " << messages[level];
+            cout << "\nPoints earned: 0";
+            cout << "\nCurrent total score: " << points << endl;
         }
     }
 
-    cout << "\n===== GAME COMPLETED =====\n";
-    cout << "You have finished all 10 levels!\n";
+    cout << "\n================================";
+    cout << "\n       GAME COMPLETED!";
+    cout << "\n================================";
+    cout << "\nFinal Score: " << points << " / 1000";
+    cout << "\nYou have finished all 10 levels!\n";
 }
